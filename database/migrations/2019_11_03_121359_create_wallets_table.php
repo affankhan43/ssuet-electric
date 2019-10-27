@@ -20,6 +20,9 @@ class CreateWalletsTable extends Migration
             $table->bigInteger('balance');
             $table->timestamps();
         });
+        Schema::table('wallets', function($table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**

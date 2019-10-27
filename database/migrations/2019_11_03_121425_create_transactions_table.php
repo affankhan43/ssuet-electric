@@ -21,6 +21,9 @@ class CreateTransactionsTable extends Migration
             $table->integer('amount');
             $table->timestamps();
         });
+        Schema::table('transactions', function($table) {
+            $table->foreign('wallet_id')->references('id')->on('transactions')->onDelete('cascade');
+        });
     }
 
     /**
