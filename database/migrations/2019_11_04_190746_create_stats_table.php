@@ -15,6 +15,7 @@ class CreateStatsTable extends Migration
     {
         Schema::create('stats', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->longText('stats');
             $table->timestamps();
         });
     }
