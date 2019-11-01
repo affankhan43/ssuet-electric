@@ -54,4 +54,16 @@ class UserController extends Controller
 		return response()->json(['id'=>$user->id,'email'=>$user->email,'name'=>$user->name,'token'=>$token]);
 	}
 
+	public function logout(Request $request) {
+		$this->validate($request, ['token' => 'required']);
+		try {
+			$this->jwtauth->invalidate($request->input('token'));
+			return response()->json(['success' => true, 'message'=> "You have successfully logged out."]);
+		}
+		catch (JWTException $e) {
+			// something went wrong whilst attempting to encode the token
+			return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
+		}
+	}
+
 }
