@@ -18,3 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('register','Api\UserController@register');
+Route::post('login','Api\UserController@login');
+
+Route::group(['middleware' => ['jwt.auth']], function() {
+	Route::get('test', function(){
+		return response()->json(['foo'=>'bar']);
+	});
+});

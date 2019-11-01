@@ -37,33 +37,41 @@ class UserController extends Controller
 		return response()->json(['success'=> true, 'message'=> 'Thanks for signing up!']);
 	}
 
-	// public function login(LoginRequest $request){
-	// 	// get user credentials: email, password
-	// 	$credentials = $request->only('email', 'password');
-	// 	$token = null;
-	// 	try{
-	// 		$token = $this->jwtauth->attempt($credentials);
-	// 		if(!$token){
-	// 			return response()->json(['invalid_email_or_password'], 422);
-	// 		}
-	// 	}
-	// 	catch (JWTAuthException $e) {
-	// 		return response()->json(['failed_to_create_token'], 500);
-	// 	}
-	// 	$user = $this->jwtauth->setToken($token)->toUser();
-	// 	return response()->json(['id'=>$user->id,'email'=>$user->email,'name'=>$user->name,'token'=>$token]);
-	// }
+	public function login(Request $request){
+		// get user credentials: email, password
+		$credentials = $request->only('email', 'password');
+		$rules = [
+			'email' => 'required|email|max:255',
+			'password'=>'required',
+		];
+		$validator = Validator::make($credentials, $rules);
+		if($validator->fails()) {
+			return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+		}
+		$token = null;
+		try{
+			$token = $this->jwtauth->attempt($credentials);
+			if(!$token){
+				return response()->json(['success'=> false, 'message'=>'Invalid Email Password']);
+			}
+		}
+		catch (JWTAuthException $e) {
+			return response()->json(['success'=>false,'message'=>'Failed To Signin']);
+		}
+		$user = $this->jwtauth->setToken($token)->toUser();
+		return response()->json(['success'=>true,'id'=>$user->id,'email'=>$user->email,'name'=>$user->name,'token'=>$token]);
+	}
 
-	// public function logout(Request $request) {
-	// 	$this->validate($request, ['token' => 'required']);
-	// 	try {
-	// 		$this->jwtauth->invalidate($request->input('token'));
-	// 		return response()->json(['success' => true, 'message'=> "You have successfully logged out."]);
-	// 	}
-	// 	catch (JWTException $e) {
-	// 		// something went wrong whilst attempting to encode the token
-	// 		return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
-	// 	}
-	// }
+	public function logout(Request $request) {
+		$this->validate($request, ['token' => 'required']);
+		try {
+			$this->jwtauth->invalidate($request->input('token'));
+			return response()->json(['success' => true, 'message'=> "You have successfully logged out."]);
+		}
+		catch (JWTException $e) {
+			// something went wrong whilst attempting to encode the token
+			return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
+		}
+	}
 
 }
