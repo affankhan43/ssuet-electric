@@ -17,12 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::post('register','Api\UserController@register');
 Route::post('login','Api\UserController@login');
+Route::post('upStats','Api\dataController@updateStats');
 
 Route::group(['middleware' => ['jwt.auth']], function() {
 	Route::post('getStats','Api\dataController@Stats');
-	Route::post('upStats','Api\dataController@updateStats');
 	Route::get('test', function(){
 		return response()->json(['foo'=>'bar']);
 	});
