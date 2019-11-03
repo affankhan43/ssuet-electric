@@ -44,10 +44,17 @@ class dataController extends Controller
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
 			date_default_timezone_set("Asia/Karachi");
-			$create = $this->stats->create([
-				"stats"=>'[{"Voltage":25,"Current":56}]'
-			]);
-			return response()->json(['success'=>true,'data'=>$create]);
+			$stats = $this->stats->first();
+			if($stats){
+				$update = $stats->update(['stats'=>'[{"Volt":123,"Amp":34}]']);
+				return response()->json(['success'=>true,'message'=>'Updated Successfully']);
+			}else{
+				$create = $this->stats->create([
+					"stats"=>'[{"Voltage":25,"Current":56}]'
+				]);
+				return response()->json(['success'=>true,'message'=>'Stats Created']);
+			}
+			
 		}
 
 	}
