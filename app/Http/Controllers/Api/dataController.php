@@ -43,6 +43,7 @@ class dataController extends Controller
 	public function updateStats(Request $request){
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
+			date_default_timezone_set("Asia/Karachi");
 			$create = $this->stats->create([
 				"stats"=>'[{"Voltage":25,"Current":56}]'
 			]);
