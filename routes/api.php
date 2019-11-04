@@ -21,6 +21,7 @@ Route::post('register','Api\UserController@register');
 Route::post('login','Api\UserController@login');
 
 Route::group(['middleware' => ['jwt.auth']], function() {
+	Route::post('getStats','Api\dataController@Stats');
 	Route::get('test', function(){
 		return response()->json(['foo'=>'bar']);
 	});

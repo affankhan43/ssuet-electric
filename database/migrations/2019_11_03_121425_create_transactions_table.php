@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('wallet_id');
+            $table->bigInteger('wallet_id')->unsigned();
             $table->string('tx_type');
             $table->string('txid');
             $table->integer('amount');
