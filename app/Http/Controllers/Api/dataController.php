@@ -39,4 +39,15 @@ class dataController extends Controller
 			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"]);
 		}
 	}
+
+	public function updateStats(Request $request){
+		$user = $this->jwtauth->parseToken()->authenticate();
+		if($user){
+			$create = $this->stats->create([
+				"stats"=>'[{"Voltage":25,"Current":56}]'
+			]);
+			return response()->json(['success'=>true,'data'=>$create]);
+		}
+
+	}
 }
