@@ -18,7 +18,7 @@ class dataController extends Controller
     private $user;
 	private $jwtauth;
 	private $stats;
-	private $wallets
+	private $wallets;
 	
 	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats, Wallet $wallets){
 		$this->user = $user;
