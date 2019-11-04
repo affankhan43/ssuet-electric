@@ -61,6 +61,7 @@ class dataController extends Controller
 	public function fetchWallet(Request $request){
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
+			print_r($user)
 			$wallet_data = $this->wallets->where('user_id',$user->id)->first();
 			if($wallet_data){
 				return response()->json(['success'=>true,'wallet'=>$wallet_data]);
