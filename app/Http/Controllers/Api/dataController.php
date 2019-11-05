@@ -68,7 +68,7 @@ class dataController extends Controller
 			echo $user->id;
 			echo $user['id'];
 			echo json_encode($user);
-			$wallet_data = $this->wallets->where(['user_id'=>2])->get();
+			$wallet_data = Wallet::where(['user_id'=>2])->get();
 			if($wallet_data){
 				return response()->json(['success'=>true,'wallet'=>$wallet_data]);
 			}
