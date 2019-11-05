@@ -24,6 +24,7 @@ Route::post('upStats','Api\dataController@updateStats');
 
 Route::group(['middleware' => ['jwt.auth']], function() {
 	Route::post('getStats','Api\dataController@Stats');
+	Route::post('getWallet','Api\dataController@fetchWallet');
 	Route::get('test', function(){
 		return response()->json(['foo'=>'bar']);
 	});
