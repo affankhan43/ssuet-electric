@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\Stat;
+use App\Wallet;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator, DB, Hash;
@@ -17,11 +18,13 @@ class dataController extends Controller
     private $user;
 	private $jwtauth;
 	private $stats;
+	private $wallets
 	
-	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats){
+	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats, Wallet $wallets){
 		$this->user = $user;
 		$this->jwtauth = $jwtauth;
 		$this->stats = $stats;
+		$this->$wallets = $wallets;
 	}
 
 	public function Stats(Request $request){
@@ -58,7 +61,7 @@ class dataController extends Controller
 	public function fetchWallet(Request $request){
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
-
+			$this->wallet->where('user_id',$user->id)->first()
 		}else{
 			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"],401);
 		}
