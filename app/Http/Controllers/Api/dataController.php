@@ -65,10 +65,7 @@ class dataController extends Controller
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
 			//print_r($user);
-			echo $user->id;
-			echo $user['id'];
-			echo json_encode($user);
-			$wallet_data = Wallet::where(['user_id'=>2])->get();
+			$wallet_data = Wallet::where(['user_id'=>2])->with('transactions')->first();
 			if($wallet_data){
 				return response()->json(['success'=>true,'wallet'=>$wallet_data]);
 			}
