@@ -36,7 +36,7 @@ class dataController extends Controller
 			}
 		}
 		else{
-			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"]);
+			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"],401);
 		}
 	}
 
@@ -52,6 +52,15 @@ class dataController extends Controller
 				"stats"=>$request->stats
 			]);
 			return response()->json(['success'=>true,'message'=>'Stats Created']);
+		}
+	}
+
+	public function fetchWallet(Request $request){
+		$user = $this->jwtauth->parseToken()->authenticate();
+		if($user){
+
+		}else{
+			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"],401);
 		}
 	}
 }
