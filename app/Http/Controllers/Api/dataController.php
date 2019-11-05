@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Stat;
 use App\Wallet;
+use App\Transaction;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator, DB, Hash;
@@ -19,12 +20,14 @@ class dataController extends Controller
 	private $jwtauth;
 	private $stats;
 	private $wallets;
+	private $transactions;
 	
-	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats, Wallet $wallets){
+	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats, Wallet $wallets, Transaction $transactions){
 		$this->user = $user;
 		$this->jwtauth = $jwtauth;
 		$this->stats = $stats;
 		$this->$wallets = $wallets;
+		$this->$transactions = $transactions;
 	}
 
 	public function Stats(Request $request){
