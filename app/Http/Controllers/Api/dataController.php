@@ -52,13 +52,15 @@ class dataController extends Controller
 	public function updateStats(Request $request){
 		$request->validate(['stats'=>'required']);
 		date_default_timezone_set("Asia/Karachi");
-		$stats = $this->stats->first();
+		$stats = $this->stats->where(['category'=>'request_1','period'=>'current'])->first();
 		if($stats){
 			$update = $stats->update(['stats'=>$request->stats]);
 			//return response()->json(['success'=>true,'message'=>'Updated Successfully']);
 		}else{
 			$create = $this->stats->create([
-				"stats"=>$request->stats
+				"stats"=>$request->stats,
+				"category"=>"request_1",
+				"period"=>"current"
 			]);
 			//return response()->json(['success'=>true,'message'=>'Stats Created']);
 		}
@@ -67,13 +69,15 @@ class dataController extends Controller
 	public function updateStatsPower(Request $request){
 		$request->validate(['stats'=>'required']);
 		date_default_timezone_set("Asia/Karachi");
-		$stats = Stat::where('id',2)->first();
+		$stats = $this->stats->where(['category'=>'request_2','period'=>'current'])->first();
 		if($stats){
 			$update = $stats->update(['stats'=>$request->stats]);
 			//return response()->json(['success'=>true,'message'=>'Updated Successfully']);
 		}else{
 			$create = $this->stats->create([
 				"stats"=>$request->stats
+				"category"=>"request_2",
+				"period"=>"current"
 			]);
 			//return response()->json(['success'=>true,'message'=>'Stats Created']);
 		}
@@ -82,13 +86,15 @@ class dataController extends Controller
 	public function updateStatsUnits(Request $request){
 		$request->validate(['stats'=>'required']);
 		date_default_timezone_set("Asia/Karachi");
-		$stats = Stat::where('id',3)->first();
+		$stats = $this->stats->where(['category'=>'request_3','period'=>'current'])->first();
 		if($stats){
 			$update = $stats->update(['stats'=>$request->stats]);
 			//return response()->json(['success'=>true,'message'=>'Updated Successfully']);
 		}else{
 			$create = $this->stats->create([
-				"stats"=>$request->stats
+				"stats"=>$request->stats,
+				"category"=>"request_3",
+				"period"=>"current"
 			]);
 			//return response()->json(['success'=>true,'message'=>'Stats Created']);
 		}
