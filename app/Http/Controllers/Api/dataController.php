@@ -8,6 +8,7 @@ use App\User;
 use App\Stat;
 use App\Wallet;
 use App\Transaction;
+use App\Rate;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator, DB, Hash;
@@ -21,13 +22,15 @@ class dataController extends Controller
 	private $stats;
 	private $wallets;
 	private $transactions;
+	private $rates;
 	
-	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats, Wallet $wallets, Transaction $transactions){
+	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats, Wallet $wallets, Transaction $transactions, Rate $rate){
 		$this->user = $user;
 		$this->jwtauth = $jwtauth;
 		$this->stats = $stats;
-		$this->$wallets = $wallets;
-		$this->$transactions = $transactions;
+		$this->wallets = $wallets;
+		$this->transactions = $transactions;
+		$this->rates = $rates;
 	}
 
 	public function Stats(Request $request){
@@ -105,6 +108,36 @@ class dataController extends Controller
 			}
 		}else{
 			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"],401);
+		}
+	}
+
+	public function updateRate(Request $request){
+		$user = $this->jwtauth->parseToken()->authenticate();
+		if($user){
+			$request->validate['rate'=>'required|numeric'];
+			$c_rates = $this->rates->where('user_id',$user->id)->first();
+			if($c_rate){
+				$update = $c_rates->update(['rate'=>$request->rate]);
+				return response()->json(['success'=>true,'message'=>'Rate Updated Successfully']);
+			}else{
+				$create = $this->rates->create(['user_id'=>$user->id,'rate'=>$request->rate]);
+				return response()->json(['success'=>true,'message'=>'Rate Created Successfully']);
+			}
+		}else{
+			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"],401);
+		}
+	}
+
+	public function getRates(Request $request){
+		$user = $this->jwtauth->parseToken()->authenticate();
+		if($user){
+			$get_rate = $this->rate->where('user_id',$user->id)->first();
+			if($get_rate){
+				return response()->json(['success'=>true,'rate'=>$get_rate->rate]);
+			}else{
+				$create = $this->rates->create(['user_id'=>$user->id,'rate'=>10]);
+				return response()->json(['success'=>true,'rate'=>$create->rate]);
+			}
 		}
 	}
 }
