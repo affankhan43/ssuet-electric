@@ -40,6 +40,9 @@ class dataController extends Controller
 			if($stats != '[]'){
 				$data = array();
 				foreach ($stats as $stat_value) {
+					if(isset($request1['updated_at'])){
+						$data['Last Updated'] = $request1['updated_at'];
+					}
 					if($stat_value['category'] == 'request_1'){
 						$request1 = json_decode($stat_value['stats'],true);
 						$data['Voltage'] = $request1['Voltage'];
@@ -47,7 +50,6 @@ class dataController extends Controller
 						$data['GridTie Power'] = $request1['GridTiePower'];
 						if($user->id == 1){ $data['Load Power'] = $request1['LoadPower1'];}
 						elseif($user->id == 2){ $data['Load Power'] = $request1['LoadPower2'];}
-						$data['Last Updated'] = $request1['updated_at'];
 					}
 				}
 				return response()->json(['success'=>true,'stats'=>$data]);
