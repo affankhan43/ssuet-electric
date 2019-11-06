@@ -46,10 +46,10 @@ class dataController extends Controller
 					if($stat_value['category'] == 'request_1'){
 						$request1 = json_decode($stat_value['stats'],true);
 						$data['Voltage'] = $request1['Voltage'];
-						$data['Main Power'] = $request1['MainPower'];
-						$data['GridTie Power'] = $request1['GridTiePower'];
-						if($user->id == 1){ $data['Load Power'] = $request1['LoadPower1'];}
-						elseif($user->id == 2){ $data['Load Power'] = $request1['LoadPower2'];}
+						$data['MainPower'] = $request1['MainPower'];
+						$data['GridTiePower'] = $request1['GridTiePower'];
+						if($user->id == 1){ $data['LoadPower'] = $request1['LoadPower1'];}
+						elseif($user->id == 2){ $data['LoadPower'] = $request1['LoadPower2'];}
 					}
 				}
 				return response()->json(['success'=>true,'stats'=>$data]);
