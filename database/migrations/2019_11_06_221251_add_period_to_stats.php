@@ -16,7 +16,7 @@ class AddPeriodToStats extends Migration
         Schema::table('stats', function (Blueprint $table) {
             //
             $table->string('period');
-            $table->string('category')
+            $table->string('category');
         });
     }
 
