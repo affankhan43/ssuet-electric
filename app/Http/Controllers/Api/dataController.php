@@ -75,7 +75,7 @@ class dataController extends Controller
 			//return response()->json(['success'=>true,'message'=>'Updated Successfully']);
 		}else{
 			$create = $this->stats->create([
-				"stats"=>$request->stats
+				"stats"=>$request->stats,
 				"category"=>"request_2",
 				"period"=>"current"
 			]);
