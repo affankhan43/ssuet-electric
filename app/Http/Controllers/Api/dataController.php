@@ -64,7 +64,7 @@ class dataController extends Controller
 	public function updateStatsPower(Request $request){
 		$request->validate(['stats'=>'required']);
 		date_default_timezone_set("Asia/Karachi");
-		$stats = Stats::where('id'=>2)->first();
+		$stats = Stats::where('id',2)->first();
 		if($stats){
 			$update = $stats->update(['stats'=>$request->stats]);
 			//return response()->json(['success'=>true,'message'=>'Updated Successfully']);
