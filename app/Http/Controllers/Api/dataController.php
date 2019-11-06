@@ -142,6 +142,10 @@ class dataController extends Controller
 		}
 	}
 
+	public function createTransaction(Request $request){
+
+	}
+
 	public function updateRate(Request $request){
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
