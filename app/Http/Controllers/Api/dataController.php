@@ -51,6 +51,17 @@ class dataController extends Controller
 						if($user->id == 1){ $data['LoadPower'] = $request1['LoadPower1'];}
 						elseif($user->id == 2){ $data['LoadPower'] = $request1['LoadPower2'];}
 					}
+					if($stat_value['category'] == 'request_2'){
+						$request2 = json_decode($stat_value['stats'],true);
+						$data['MainCurrent'] = $request2['MainCurrent'];
+						$data['GridTieCurrent'] = $request2['GridTieCurrent'];
+						if($user->id == 1){ $data['LoadCurrent'] = $request2['LoadCurrent1'];}
+						elseif($user->id == 2){ $data['LoadCurrent'] = $request2['LoadCurrent2'];}
+					}
+					if($stat_value['category'] == 'request_3'){
+						$request3 = json_decode($stat_value['stats'],true);
+						$data['LastUpdated'] = date('Y-m-d H:i:s',strtotime($stat_value['updated_at']));
+					}
 				}
 				return response()->json(['success'=>true,'stats'=>$data]);
 			}
