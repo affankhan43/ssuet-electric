@@ -129,7 +129,7 @@ class dataController extends Controller
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
 			//print_r($user);
-			$wallet_data = Wallet::where(['user_id'=>2])->with('transactions')->first();
+			$wallet_data = Wallet::where(['user_id'=>$user->id])->with('transactions')->first();
 			if($wallet_data){
 				$walletShow  = ['address'=>$wallet_data->address,'balance'=>$wallet_data->balance];
 				return response()->json(['success'=>true,'wallet'=>$walletShow,'transactions'=>$wallet_data->transactions]);
