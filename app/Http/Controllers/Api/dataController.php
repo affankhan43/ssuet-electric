@@ -116,7 +116,7 @@ class dataController extends Controller
 		if($user){
 			$request->validate(['rate'=>'required|numeric']);
 			$c_rates = $this->rates->where('user_id',$user->id)->first();
-			if($c_rate){
+			if($c_rates){
 				$update = $c_rates->update(['rate'=>$request->rate]);
 				return response()->json(['success'=>true,'message'=>'Rate Updated Successfully']);
 			}else{
