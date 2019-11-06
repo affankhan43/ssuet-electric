@@ -24,7 +24,7 @@ class dataController extends Controller
 	private $transactions;
 	private $rates;
 	
-	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats, Wallet $wallets, Transaction $transactions, Rate $rate){
+	public function __construct(User $user, JWTAuth $jwtauth, Stat $stats, Wallet $wallets, Transaction $transactions, Rate $rates){
 		$this->user = $user;
 		$this->jwtauth = $jwtauth;
 		$this->stats = $stats;
@@ -131,7 +131,7 @@ class dataController extends Controller
 	public function getRates(Request $request){
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
-			$get_rate = $this->rate->where('user_id',$user->id)->first();
+			$get_rate = $this->rates->where('user_id',$user->id)->first();
 			if($get_rate){
 				return response()->json(['success'=>true,'rate'=>$get_rate->rate]);
 			}else{
