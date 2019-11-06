@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Stat extends Model
 {
     //
-    protected $fillable = ["stats"];
+    protected $fillable = ["stats","period","category"];
 }
