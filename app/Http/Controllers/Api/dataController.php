@@ -114,7 +114,7 @@ class dataController extends Controller
 	public function updateRate(Request $request){
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){
-			$request->validate['rate'=>'required|numeric'];
+			$request->validate(['rate'=>'required|numeric']);
 			$c_rates = $this->rates->where('user_id',$user->id)->first();
 			if($c_rate){
 				$update = $c_rates->update(['rate'=>$request->rate]);
