@@ -47,6 +47,7 @@ class dataController extends Controller
 						$data['GridTie Power'] = $request1['GridTiePower'];
 						if($user->id == 1){ $data['Load Power'] = $request1['LoadPower1'];}
 						elseif($user->id == 2){ $data['Load Power'] = $request1['LoadPower2'];}
+						$data['Last Updated'] = $request1['updated_at'];
 					}
 				}
 				return response()->json(['success'=>true,'stats'=>$data]);
