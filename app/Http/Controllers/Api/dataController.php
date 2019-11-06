@@ -76,6 +76,21 @@ class dataController extends Controller
 		}
 	}
 
+	public function updateStatsUnits(Request $request){
+		$request->validate(['stats'=>'required']);
+		date_default_timezone_set("Asia/Karachi");
+		$stats = Stat::where('id',3)->first();
+		if($stats){
+			$update = $stats->update(['stats'=>$request->stats]);
+			//return response()->json(['success'=>true,'message'=>'Updated Successfully']);
+		}else{
+			$create = $this->stats->create([
+				"stats"=>$request->stats
+			]);
+			//return response()->json(['success'=>true,'message'=>'Stats Created']);
+		}
+	}
+
 	public function fetchWallet(Request $request){
 		$user = $this->jwtauth->parseToken()->authenticate();
 		if($user){

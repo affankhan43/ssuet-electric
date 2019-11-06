@@ -22,6 +22,7 @@ Route::post('register','Api\UserController@register');
 Route::post('login','Api\UserController@login');
 Route::post('upStats','Api\dataController@updateStats');
 Route::post('upStatsPower','Api\dataController@updateStatsPower');
+Route::post('upStatsPower','Api\dataController@updateStatsUnits');
 
 Route::group(['middleware' => ['jwt.auth']], function() {
 	Route::post('getStats','Api\dataController@Stats');
