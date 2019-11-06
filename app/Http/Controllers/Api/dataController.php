@@ -41,7 +41,7 @@ class dataController extends Controller
 				$data = array();
 				foreach ($stats as $stat_value) {
 					if(isset($request1['updated_at'])){
-						$data['Last Updated'] = $request1['updated_at'];
+						$data['LastUpdated'] = $request1['updated_at'];
 					}
 					if($stat_value['category'] == 'request_1'){
 						$request1 = json_decode($stat_value['stats'],true);
