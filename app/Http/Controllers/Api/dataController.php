@@ -52,12 +52,27 @@ class dataController extends Controller
 		$stats = $this->stats->first();
 		if($stats){
 			$update = $stats->update(['stats'=>$request->stats]);
-			return response()->json(['success'=>true,'message'=>'Updated Successfully']);
+			//return response()->json(['success'=>true,'message'=>'Updated Successfully']);
 		}else{
 			$create = $this->stats->create([
 				"stats"=>$request->stats
 			]);
-			return response()->json(['success'=>true,'message'=>'Stats Created']);
+			//return response()->json(['success'=>true,'message'=>'Stats Created']);
+		}
+	}
+
+	public function updateStatsPower(Request $request){
+		$request->validate(['stats'=>'required']);
+		date_default_timezone_set("Asia/Karachi");
+		$stats = $this->stats::where('id'=>2)->first();
+		if($stats){
+			$update = $stats->update(['stats'=>$request->stats]);
+			//return response()->json(['success'=>true,'message'=>'Updated Successfully']);
+		}else{
+			$create = $this->stats->create([
+				"stats"=>$request->stats
+			]);
+			//return response()->json(['success'=>true,'message'=>'Stats Created']);
 		}
 	}
 
