@@ -123,7 +123,8 @@ class dataController extends Controller
 				$create = $this->rates->create(['user_id'=>$user->id,'rate'=>$request->rate]);
 				return response()->json(['success'=>true,'message'=>'Rate Created Successfully']);
 			}
-		}else{
+		}
+		else{
 			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"],401);
 		}
 	}
@@ -138,6 +139,9 @@ class dataController extends Controller
 				$create = $this->rates->create(['user_id'=>$user->id,'rate'=>10]);
 				return response()->json(['success'=>true,'rate'=>$create->rate]);
 			}
+		}
+		else{
+			return response()->json(['success'=>false,'message'=>"invalid_user_make_logout"],401);
 		}
 	}
 }
