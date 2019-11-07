@@ -143,6 +143,13 @@ class dataController extends Controller
 	}
 
 	public function createTransaction(Request $request){
+		$previous_stats = $this->stats->where(['period'=>'previous','category'=>'request_3'])->first();
+		$current_stats = $this->stats->where(['period'=>'current','category'=>'request_3'])->first();
+
+		if($previous_stats && $current_stats){
+
+		}
+
 
 	}
 
